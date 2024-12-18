@@ -1,0 +1,26 @@
+<div class="min-h-screen bg-gradient-to-b from-black via-gray-900 to-black-900 text-white">
+
+<div class="navbar bg-transparent backdrop-blur-sm flex justify-center items-center shadow-lg fixed top-0 w-full z-10 px-6 py-4">
+  <nav class="flex space-x-6 text-lg">
+    <a
+      routerLink="/"
+      routerLinkActive="text-gray-400"
+      class="font-medium text-gray-300 hover:text-gray-400 transition duration-300 ease-in-out"
+    >
+      Consulta
+    </a>
+    <a
+      routerLink="/list"
+      routerLinkActive="text-gray-400"
+      class="font-medium text-gray-300 hover:text-gray-400 transition duration-300 ease-in-out"
+    >
+      Relacion
+    </a>
+  </nav>
+</div>
+
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+
+</div>
