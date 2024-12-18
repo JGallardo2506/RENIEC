@@ -1,0 +1,11 @@
+spring:
+  application:
+    name: api-reniec
+  r2dbc:
+    url: r2dbc:pool:postgresql://aws-0-us-west-1.pooler.supabase.com:5432/postgres
+    password: Desierto2024v
+    username: postgres.saneziadygzklbkikvrl
+
+name:
+  token: eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJlbWFpbCI6Imp1bGlvLnF1aXNwZUB2YWxsZWdyYW5kZS5lZHUucGUifQ.6M-P2QMMvKFZEeMvTUXvkOooM02N_pWqt0OdlaYW3PM
+
