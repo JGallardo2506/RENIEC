@@ -5,10 +5,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import Swal from 'sweetalert2';
-import * as XLSX from 'xlsx';
-import jsPDF from 'jspdf';
-import autoTable from 'jspdf-autotable';
-import { saveAs } from 'file-saver';
+
 
 @Component({
   standalone: true,
@@ -333,69 +330,5 @@ export class ListDniComponent implements OnInit {
     const startIndex = (this.currentPage - 1) * this.itemsPerPage;
     const endIndex = startIndex + this.itemsPerPage;
     return this.filteredDnis.slice(startIndex, endIndex);
-  }
-
-  // Exportaciones
-  exportarExcel(): void {
-    const worksheet: XLSX.WorkSheet = XLSX.utils.json_to_sheet(
-      this.filteredDnis
-    );
-    const workbook: XLSX.WorkBook = {
-      Sheets: { 'Datos DNIs': worksheet },
-      SheetNames: ['Datos DNIs'],
-    };
-
-    const excelBuffer: any = XLSX.write(workbook, {
-      bookType: 'xlsx',
-      type: 'array',
-    });
-
-    this.guardarArchivo(excelBuffer, 'dnis.xlsx');
-  }
-
-  guardarArchivo(buffer: any, nombreArchivo: string): void {
-    const blob: Blob = new Blob([buffer], { type: 'application/octet-stream' });
-    const link = document.createElement('a');
-    link.href = window.URL.createObjectURL(blob);
-    link.download = nombreArchivo;
-    link.click();
-  }
-
-  exportarPDF(): void {
-    const doc = new jsPDF();
-    const columnas = [
-      { header: 'DNI', dataKey: 'dni' },
-      { header: 'Nombres', dataKey: 'nombres' },
-      { header: 'Apellido Paterno', dataKey: 'apellidoPaterno' },
-      { header: 'Apellido Materno', dataKey: 'apellidoMaterno' },
-    ];
-
-    const filas = this.filteredDnis.map((dni) => ({
-      dni: dni.dni,
-      nombres: dni.nombres,
-      apellidoPaterno: dni.apellidoPaterno,
-      apellidoMaterno: dni.apellidoMaterno,
-    }));
-
-    doc.text('Reporte de DNIs', 14, 10);
-    autoTable(doc, {
-      columns: columnas,
-      body: filas,
-      startY: 20,
-    });
-
-    doc.save('dnis.pdf');
-  }
-
-  exportarCSV(): void {
-    const encabezados = 'DNI,Nombres,Apellido Paterno\n';
-    const filas = this.filteredDnis
-      .map((dni) => `${dni.dni},${dni.nombres},${dni.apellidoPaterno}`)
-      .join('\n');
-
-    const blob = new Blob([encabezados + filas], {
-      type: 'text/csv;charset=utf-8;',
-    });
-    saveAs(blob, 'dnis.csv');
   }
 }

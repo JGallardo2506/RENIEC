@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://localhost:8080'
+  apiUrl: 'https://humble-computing-machine-x5pwwvvpr65pf6xxv-8080.app.github.dev'
 };
